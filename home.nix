@@ -28,6 +28,23 @@ in
           gcalcli remind 0
         '';
       };
+      ".config/battery_check.sh" = {
+        executable = true;
+        text = ''
+          #! /usr/bin/env nix-shell
+          #! nix-shell -i bash -p acpi dunst 
+
+          export DISPLAY=:0
+          XAUTHORITY=/home/asa/.Xauthority
+
+          percent=`acpi -b | grep -P -o '[0-9]+(?=%)'`
+          if [ $percent -le 15 ]
+          then
+            dunstify -a "BATTERY LOW" -u critical "danger!" "Connect the power cable!"
+          fi
+          echo 'ran batt' >> /home/asa/cron.log
+        '';
+      };
     };
 
     packages = with pkgs; [
