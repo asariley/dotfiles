@@ -48,7 +48,7 @@ in
       sublime-merge
       vimpc
       hicolor-icon-theme
-      (dunst.override { dunstify = true; })
+      dunst
       gcalcli
       terraform
       unzip

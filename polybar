@@ -65,11 +65,10 @@ enable-scroll = false
 label-active-foreground = ${colors.foreground}
 label-active-background = ${colors.background}
 label-active-underline = ${xrdb:color4} 
-label-empty-padding = 2
-label-active-padding = 2
 label-urgent-background = ${colors.primary}
-label-song-maxlen = 25
-label-song-ellipsis = true
+label-occupied-margin = 2
+label-empty-margin = 2
+label-active-margin = 2
 
 [module/cpu]
 type = internal/cpu
