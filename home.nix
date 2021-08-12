@@ -74,7 +74,8 @@ in
       screen
       (import (builtins.fetchTarball "https://github.com/NixOS/nixpkgs/archive/9ffd16b3850536094ca36bc31520bb15a6d5a9ef.tar.gz") {}).cachix
       remmina
-      (import (builtins.fetchTarball "https://github.com/NixOS/nixpkgs/archive/master.tar.gz") {}).discord
+      discord
+      _1password-gui
     ];
 
     sessionVariables = {
