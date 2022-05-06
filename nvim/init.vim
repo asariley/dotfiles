@@ -316,3 +316,6 @@ nmap <D-8> <Plug>AirlineSelectTab8
 nmap <D-9> <Plug>AirlineSelectTab9
 nmap <D-left> <Plug>AirlineSelectPrevTab
 nmap <D-right> <Plug>AirlineSelectNextTab
+
+" Remove trailing whitespace on save
+autocmd BufWritePre *.hs,*.nix,*.proto :%s/\s\+$//ge
