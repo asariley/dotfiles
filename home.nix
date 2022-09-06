@@ -11,7 +11,7 @@ in
 {
   imports = [
     /home/asa/git/vital-nix/user/feh-background.nix
-    /home/asa/git/vital-nix/user/p53.nix
+    /home/asa/git/vital-nix/user/thinkpad.nix
     /home/asa/git/vital-nix/user/software-workstation.nix
   ];
 
@@ -32,7 +32,7 @@ in
         executable = true;
         text = ''
           #! /usr/bin/env nix-shell
-          #! nix-shell -i bash -p acpi dunst 
+          #! nix-shell -i bash -p acpi dunst
 
           export DISPLAY=:0
           XAUTHORITY=/home/asa/.Xauthority
@@ -48,6 +48,7 @@ in
     };
 
     packages = with pkgs; [
+      nixos-option
       zsh-prezto
       neovim
       google-chrome
@@ -145,7 +146,7 @@ in
     };
 
     man.enable = true;
-    
+
     firefox = {
       profiles.asa = {
         settings = {
