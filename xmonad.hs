@@ -64,7 +64,7 @@ myManageHook = composeAll . concat $
   , [className =? "Sublime_merge" --> doShift referenceWS]
   , [className =? "zoom" --> doShift commsWS]
   , [className =? c --> doRectFloat (StackSet.RationalRect 0.3 0.3 0.4 0.4) | c <- floatsClass]
-  , [wmName =? "sxiv" -->  doRectFloat (StackSet.RationalRect 0.3 0.3 0.4 0.4)] 
+  , [wmName =? "sxiv" -->  doRectFloat (StackSet.RationalRect 0.3 0.3 0.4 0.4)]
   ]
   where
     wmName = stringProperty "WM_NAME"
@@ -133,10 +133,10 @@ myKeys conf@(XConfig { XMonad.modMask = modm }) = M.fromList $
   , ((modm              , XMonad.xK_d     ), scrot ScrotWindow    ScrotFile)
   , ((modm .|. shiftMask, XMonad.xK_d     ), scrot ScrotWindow    ScrotClipboard)
 
-  , ((0, XF86.xF86XK_AudioMute),         spawn "pactl set-sink-mute 0 toggle")
-  , ((0, XF86.xF86XK_AudioLowerVolume),  spawn "pactl set-sink-volume 0 -5%")
-  , ((0, XF86.xF86XK_AudioRaiseVolume),  spawn "pactl set-sink-volume 0 +5%")
-  , ((0, XF86.xF86XK_AudioMicMute),      spawn "pactl set-source-mute 1 toggle")
+  , ((0, XF86.xF86XK_AudioMute),         spawn "pactl set-sink-mute alsa_output.pci-0000_00_1f.3.analog-stereo toggle")
+  , ((0, XF86.xF86XK_AudioLowerVolume),  spawn "pactl set-sink-volume alsa_output.pci-0000_00_1f.3.analog-stereo -5%")
+  , ((0, XF86.xF86XK_AudioRaiseVolume),  spawn "pactl set-sink-volume alsa_output.pci-0000_00_1f.3.analog-stereo +5%")
+  , ((0, XF86.xF86XK_AudioMicMute),      spawn "pactl set-source-mute alsa_input.pci-0000_00_1f.3.analog-stereo toggle")
   , ((0, XF86.xF86XK_MonBrightnessDown), spawn "brightnessctl s 3%-")
   , ((0, XF86.xF86XK_MonBrightnessUp),   spawn "brightnessctl s 3%+")
   ]
