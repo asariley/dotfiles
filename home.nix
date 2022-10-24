@@ -1,10 +1,16 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 let
 
   xmonad = pkgs.xmonad-with-packages.override {
     packages = p: with p; [ xmonad-contrib xmonad-extras ];
   };
+  mkOutOfStoreSymlink = path:
+    let
+      pathStr = toString path;
+      name = lib.hm.strings.storeFileName (baseNameOf pathStr);
+    in
+      pkgs.runCommandLocal name {} ''ln -s ${lib.escapeShellArg pathStr} $out'';
 
 in
 
@@ -74,6 +80,21 @@ in
       bmap-tools
       screen
       remmina
+      ripgrep
+      delta
+      lsd
+      fd
+      stdenv.cc
+      glibc.dev
+      linuxHeaders
+      bat
+      (writeShellScriptBin "bat-fzf-preview" ''
+        target_line="$1"
+        first_window_line="$(($target_line-$FZF_PREVIEW_LINES/2))"
+        last_window_line="$(($target_line+$FZF_PREVIEW_LINES))"
+        shift
+        ${bat}/bin/bat --color=always --style=numbers --highlight-line=$target_line --line-range=$(($first_window_line<1?1:$first_window_line)):$(($last_window_line)) "$@"
+      '')
       #(import (builtins.fetchTarball "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz") {})._1password-gui
     ];
 
@@ -126,6 +147,17 @@ in
       enable = true;
       extraConfig = {
         core.editor = "$EDITOR";
+        core.pager = "${pkgs.delta}/bin/delta";
+        interactive.diffFilter = "${pkgs.delta}/bin/delta --color-only";
+        add.interactive.useBuiltin = false;
+        include.path = "${builtins.fetchurl "https://raw.githubusercontent.com/dandavison/delta/4c879ac1afca68a30c9a100bea2965b858eb1853/themes.gitconfig"}";
+        delta = {
+          features = "chameleon";
+          navigate = true;
+          light = false;
+        };
+        merge.conflictstyle = "diff3";
+        diff.colorMoved = "default";
       };
     };
 
@@ -178,9 +210,11 @@ in
 
 
   xdg.configFile = {
-    "nvim/init.vim".source = ./nvim/init.vim;
     "polybar/config".source = ./polybar;
+    "lsd/config.yaml".source = ./lsd.yaml;
+    nvim.source = mkOutOfStoreSymlink ./nvim;
   };
+  xdg.dataFile."nvim/site/autoload/plug.vim".source = builtins.fetchurl "https://raw.githubusercontent.com/junegunn/vim-plug/8fdabfba0b5a1b0616977a32d9e04b4b98a6016a/plug.vim";
 
   xresources.properties = {
     # special
