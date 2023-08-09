@@ -201,10 +201,10 @@ in
           "extensions.formautofill.addresses.enabled" = false;
           "ui.systemUsesDarkTheme"= 1;
         };
+        extensions = with pkgs.nur.repos.rycee.firefox-addons; [
+          1password-x-password-manager
+        ];
       };
-      extensions = with pkgs.nur.repos.rycee.firefox-addons; [
-        1password-x-password-manager
-      ];
     };
   };
 

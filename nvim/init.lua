@@ -1,6 +1,5 @@
 require "rmm/options"
 require "rmm/plugins"
-require "rmm/win32yank"
 
 require "rmm/onedark"
 
