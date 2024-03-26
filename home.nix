@@ -62,9 +62,10 @@ in
       file
       slack
       zoom-us
+      obsidian
       gotop
       binutils
-      exa
+      eza
       silver-searcher
       inkscape
       gimp

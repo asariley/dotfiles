@@ -1,7 +1,6 @@
 {-# OPTIONS_GHC -Wall -Werror -Wno-unused-imports #-}
 
 import Data.Bits ((.|.))
-import Data.Default (def)
 import qualified Data.Map as M
 import Data.Semigroup (Endo)
 import Graphics.X11.ExtraTypes.XF86 as XF86
@@ -77,6 +76,7 @@ myStartupHook = do
   spawnOnOnce commsWS "slack --silent"
   spawnOnOnce commsWS "QT_SCALE_FACTOR=2 zoom-us"
   spawnOnOnce referenceWS "firefox"
+  spawnOnOnce codeWS "obsidian"
   spawnOnOnce codeWS myTerminal
 
 myNewManageHook :: Query (Endo WindowSet)
@@ -174,7 +174,7 @@ main = do
   where
     tabs = tabBar shrinkText theme Top (resizeVertical (D.fi . D.decoHeight $ theme) Simplest)
     tiles = ResizableTall 1 (3 / 100) (0.5) []
-    theme = def
+    theme = D.Theme
       { D.activeColor         = "#f92672"
       , D.activeBorderColor   = "#f92672"
       , D.activeTextColor     = "#f8f8f2"
@@ -186,4 +186,11 @@ main = do
       , D.urgentTextColor     = "#f8f8f2"
       , D.decoHeight          = 28
       , D.fontName            = "xft:Fira Code Retina:size=9"
+      , D.activeBorderWidth   = 1
+      , D.inactiveBorderWidth = 1
+      , D.urgentBorderWidth   = 1
+      , D.decoWidth           = 200
+      , D.windowTitleAddons   = []
+      , D.windowTitleIcons    = []
       }
+

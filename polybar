@@ -59,6 +59,7 @@ label-unmounted-foreground = ${colors.foreground-alt}
 
 [module/ewmh]
 type = internal/xworkspaces
+group-by-monitor = false
 pin-workspaces = false
 enable-click = true
 enable-scroll = false
