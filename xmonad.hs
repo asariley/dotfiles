@@ -43,14 +43,15 @@ import XMonad.Util.SpawnOnce (spawnOnce, spawnOnOnce)
 myTerminal :: String
 myTerminal = "kitty"
 
-codeWS, referenceWS, commsWS, officeWS, remoteWS :: String
+codeWS, referenceWS, commsWS, officeWS, slackWS, remoteWS :: String
 codeWS = "Code"
 referenceWS = "Reference"
-commsWS = "Comms"
+commsWS = "Meet"
 officeWS = "Office"
+slackWS = "Slack"
 remoteWS = "Remote"
 myWorkspaces :: [String]
-myWorkspaces = [codeWS, referenceWS, commsWS, officeWS, remoteWS]
+myWorkspaces = [codeWS, referenceWS, commsWS, officeWS, slackWS, remoteWS]
 
 gaps :: l a -> ModifiedLayout Spacing l a
 gaps = spacingRaw True (Border 0 0 0 0) False (Border 4 4 4 4) False -- gaps (border / window spacing)
@@ -59,7 +60,7 @@ gaps = spacingRaw True (Border 0 0 0 0) False (Border 4 4 4 4) False -- gaps (bo
 -- > xprop | grep WM_CLASS
 myManageHook :: Query (Endo WindowSet)
 myManageHook = composeAll . concat $
-  [ [className =? "Slack" --> doShift commsWS]
+  [ [className =? "Slack" --> doShift slackWS]
   , [className =? "Sublime_merge" --> doShift referenceWS]
   , [className =? "zoom" --> doShift commsWS]
   , [className =? c --> doRectFloat (StackSet.RationalRect 0.3 0.3 0.4 0.4) | c <- floatsClass]
